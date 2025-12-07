@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miejsko-Gminny Ośrodek Kultury w Stąporkowie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0a0a1a; /* Głęboki granat/czerń */
+            --text-light: #f0f0f0;
+            --gold-accent: #d4af37;
+            --card-bg: #1a1a2e;
+            --font-primary: 'Roboto', sans-serif;
+            --font-secondary: 'Playfair Display', serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-secondary);
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2.5rem;
+            color: var(--gold-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .content-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 80px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 1rem;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-accent);
+            transition: width 0.3s ease-in-out;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .logo-link {
+            padding: 0 2rem;
+        }
+
+        .logo-img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .hamburger, .mobile-menu {
+            display: none;
+        }
+
+        /* --- Hero Section --- */
+        /* ZMIANA: Tło pobierane z folderu img */
+        .hero-section {
+            height: 100vh;
+            /* Tutaj zmieniono URL na lokalny plik */
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('img/hero-bg.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+
+        /* --- News Section --- */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2); /* Hover Glow */
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content time {
+            font-size: 0.8rem;
+            color: var(--gold-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* --- Events Section --- */
+        .events-section {
+            background-color: var(--card-bg);
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--dark-bg);
+            padding: 1rem 1.5rem;
+            border-left: 5px solid var(--gold-accent);
+            transition: background-color 0.3s ease;
+        }
+
+        .event-item:hover {
+            background-color: #2a2a3e;
+        }
+
+        .event-date {
+            text-align: center;
+            margin-right: 1.5rem;
+            color: var(--gold-accent);
+        }
+
+        .event-date .day {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-date .month {
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .event-details h3 {
+            font-size: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .event-details p {
+            color: #bbb;
+        }
+
+        /* --- Classes Section --- */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .class-tile {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 350px;
+        }
+
+        .class-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .class-tile:hover img {
+            transform: scale(1.1);
+        }
+
+        .tile-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(10, 10, 26, 0.9), transparent);
+            padding: 2rem 1.5rem;
+            color: #fff;
+            text-align: center;
+        }
+
+        .tile-overlay h3 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: #05050f;
+            padding: 3rem 0 0 0;
+            border-top: 2px solid var(--gold-accent);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            gap: 2rem;
+        }
+
+        .footer-map, .footer-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        .footer-map iframe {
+            filter: invert(100%) grayscale(80%);
+        }
+
+        .footer-info h3 {
+            font-size: 1.8rem;
+            color: var(--gold-accent);
+            margin-bottom: 1rem;
+        }
+
+        .footer-info p {
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        .social-media {
+            margin-top: 1.5rem;
+        }
+
+        .social-media a {
+            margin-right: 1rem;
+            color: var(--text-light);
+        }
+
+        .social-media a:hover {
+            color: var(--gold-accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .main-nav {
+                justify-content: space-between;
+            }
+
+            .logo-link {
+                flex-grow: 1;
+                text-align: center;
+                padding: 0;
+                margin-left: 30px; /* Space for hamburger */
+            }
+            
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                width: 30px;
+                height: 25px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                z-index: 10;
+                position: absolute;
+                right: 2rem;
+            }
+            
+            .hamburger span {
+                width: 30px;
+                height: 3px;
+                background: var(--text-light);
+                border-radius: 5px;
+                transition: all 0.3s linear;
+            }
+            
+            .hamburger.is-active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 6px);
+            }
+            .hamburger.is-active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.is-active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -6px);
+            }
+
+            .mobile-menu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+                background: var(--dark-bg);
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                padding: 2rem 0;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease-in-out;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            }
+
+            .mobile-menu.is-active {
+                transform: translateY(0);
+            }
+            .mobile-menu a {
+                font-size: 1.2rem;
+                color: var(--text-light);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            .content-section { padding: 3rem 1rem; }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            .footer-map {
+                height: 250px;
+            }
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="main-nav">
+            <div class="nav-links nav-links-left">
+                <a href="#main">Główna</a>
+                <a href="#about">O nas</a>
+                <a href="#library">Biblioteka publiczna</a>
+                <a href="#art-space">Artystyczna przestrzeń</a>
+            </div>
+            <a href="#main" class="logo-link">
+                <img src="img/logo.png" alt="Logo Miejsko-Gminnego Ośrodka Kultury w Stąporkowie" class="logo-img">
+            </a>
+            <div class="nav-links nav-links-right">
+                <a href="#activities">Inne formy działalności</a>
+                <a href="#news">Aktualności</a>
+                <a href="#team">Kadra</a>
+                <a href="#contact">Kontakt</a>
+            </div>
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        <div class="mobile-menu" id="mobile-menu-container">
+             <a href="#main">Główna</a>
+             <a href="#about">O nas</a>
+             <a href="#library">Biblioteka publiczna</a>
+             <a href="#art-space">Artystyczna przestrzeń</a>
+             <a href="#activities">Inne formy działalności</a>
+             <a href="#news">Aktualności</a>
+             <a href="#team">Kadra</a>
+             <a href="#contact">Kontakt</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="main" class="hero-section">
+            <div class="hero-content">
+                <h1>Kultura w sercu Stąporkowa</h1>
+            </div>
+        </section>
+
+        <section id="news" class="news-section content-section">
+            <h2>Najnowsze Aktualności</h2>
+            <div class="news-grid">
+                <article class="news-card">
+                    <img src="img/news-1.jpg" alt="Zdjęcie wydarzenia - wieczór poezji">
+                    <div class="card-content">
+                        <time datetime="2023-10-26">26 Października 2023</time>
+                        <h3>Wieczór poezji z lokalnymi artystami</h3>
+                        <p>Zapraszamy na magiczny wieczór pełen wzruszeń i refleksji, podczas którego swo...</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <img src="img/news-2.jpg" alt="Zdjęcie z przedstawienia">
+                    <div class="card-content">
+                        <time datetime="2023-10-24">24 Października 2023</time>
+                        <h3>Premiera spektaklu "Cienie Przeszłości"</h3>
+                        <p>Nasza grupa teatralna ma zaszczyt zaprosić na premierę swojego najnowszego d...</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <img src="img/news-3.jpg" alt="Zdjęcie z wernisażu">
+                    <div class="card-content">
+                        <time datetime="2023-10-22">22 Października 2023</time>
+                        <h3>Wernisaż wystawy malarstwa "Kolory Emocji"</h3>
+                        <p>Odkryj świat barw i form na wystawie prac utalentowanej malarki, Anny Kowals...</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="events" class="events-section content-section">
+            <h2>Nadchodzące Wydarzenia</h2>
+            <div class="events-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">15</span>
+                        <span class="month">LIS</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Koncert jazzowy: "Autumn Leaves"</h3>
+                        <p>Sala Widowiskowa, Godz. 19:00</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">22</span>
+                        <span class="month">LIS</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Warsztaty ceramiczne dla dorosłych</h3>
+                        <p>Pracownia plastyczna, Godz. 17:00</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="day">05</span>
+                        <span class="month">GRU</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Spotkanie autorskie z pisarzem Janem Nowakiem</h3>
+                        <p>Biblioteka Publiczna, Godz. 18:00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="classes-section content-section">
+            <h2>Zajęcia i Sekcje</h2>
+            <div class="classes-grid">
+                <div class="class-tile">
+                    <img src="img/class-art.jpg" alt="Zajęcia plastyczne">
+                    <div class="tile-overlay"><h3>Zajęcia Plastyczne</h3></div>
+                </div>
+                <div class="class-tile">
+                    <img src="img/class-music.jpg" alt="Zajęcia muzyczne">
+                    <div class="tile-overlay"><h3>Zajęcia Muzyczne</h3></div>
+                </div>
+                 <div class="class-tile">
+                    <img src="img/class-ceramics.jpg" alt="Ceramika">
+                    <div class="tile-overlay"><h3>Ceramika</h3></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" class="main-footer">
+        <div class="footer-content">
+            <div class="footer-map">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.263592082269!2d20.71001861577005!3d51.15781697957908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4719c8f0f0a8c3d7%3A0x8f7d9c6c8f9b9e8d!2sMiejsko-Gminny%20O%C5%9Brodek%20Kultury%20w%20St%C4%85porkowie!5e0!3m2!1spl!2spl!4v1698336181180!5m2!1spl!2spl" 
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="footer-info">
+                <h3>Kontakt</h3>
+                <p>Miejsko-Gminny Ośrodek Kultury</p>
+                <p>ul. Marszałka Józefa Piłsudskiego 103</p>
+                <p>26-220 Stąporków</p>
+                <br>
+                <p><strong>Telefon:</strong> (41) 374 10 91</p>
+                <p><strong>Email:</strong> mgok@staporkow.pl</p>
+                <div class="social-media">
+                    <a href="#" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.441 1.441 1.441 1.441-.645 1.441-1.441-.645-1.44-1.441-1.44z"/></svg></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="current-year"></span> Miejsko-Gminny Ośrodek Kultury w Stąporkowie. Wszelkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Mobile Hamburger Menu
+            const hamburger = document.getElementById('hamburger-menu');
+            const mobileMenu = document.getElementById('mobile-menu-container');
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+            const toggleMenu = () => {
+                hamburger.classList.toggle('is-active');
+                mobileMenu.classList.toggle('is-active');
+            };
+            
+            hamburger.addEventListener('click', toggleMenu);
+            
+            // Close menu when a link is clicked
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('is-active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Set current year in footer
+            const yearSpan = document.getElementById('current-year');
+            if(yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+            
+            // Scroll reveal animation
+            const revealElements = document.querySelectorAll('.content-section');
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                el.classList.add('reveal');
+                revealObserver.observe(el);
+            });
+            
+            // Add smooth scrolling to all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+</html>
